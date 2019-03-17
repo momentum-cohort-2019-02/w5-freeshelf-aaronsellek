@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,16 +23,19 @@ MEDIA_URL = '/media/'
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')crne*aq^_jn==5)!6@)$zcc9+g+o)cn@+g!qcma$64(jxw-az'
+SECRET_KEY = ')3kb@usm3sy^uq$7z2=qowarr)(4cly@s7b=%u2j^1m18(w4x%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
+
     # built-in apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,8 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # my apps
     'freeshelfapp', 
+
     'debug_toolbar',
+
 ]
 
 MIDDLEWARE = [
@@ -60,6 +68,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
+            # makes the templates directory visible to the template loader
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York' # default 'UTC'
 
 USE_I18N = True
 
@@ -121,12 +130,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
 STATIC_URL = '/static/'
 
+# Registration
+ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
-    # Redirect to home URL after login (Default redirects to /accounts/profile/)
 
+# Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Messages
+MESSAGE_TAGS = {
+    messages.INFO: 'b--blue bg-light-blue',    
+    messages.SUCCESS: 'b--green bg-light-green'
+        # styles messages used through-out the project
+}
+
 django_heroku.settings(locals())
+    # locals returns a dictionary of all your local variables

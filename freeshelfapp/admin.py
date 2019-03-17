@@ -6,11 +6,11 @@ from freeshelfapp.models import Category, Author, Book
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
-@admin.register(Author)
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_added', 'display_author', 'display_category')
     list_filter = ('date_added', 'author',)
+
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('name',)
